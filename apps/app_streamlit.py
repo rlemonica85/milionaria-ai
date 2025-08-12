@@ -38,6 +38,57 @@ root_dir = Path(__file__).parent.parent
 if str(root_dir) not in sys.path:
     sys.path.insert(0, str(root_dir))
 
+# Função para inicializar banco de dados se não existir
+def initialize_database_if_needed():
+    """Cria banco de dados com dados de exemplo se não existir"""
+    db_path = Path("db/milionaria.db")
+    if not db_path.exists():
+        try:
+            # Importar módulos necessários
+            from src.db.schema import get_engine, ensure_schema
+            from src.db.io import upsert_rows
+            import pandas as pd
+            from datetime import datetime, timedelta
+            
+            # Criar banco e schema
+            engine = get_engine()
+            ensure_schema(engine)
+            
+            # Criar dados de exemplo (últimos 50 sorteios fictícios)
+            import random
+            random.seed(42)
+            
+            data = []
+            base_date = datetime(2023, 1, 1)
+            
+            for i in range(1, 51):
+                # Gerar números únicos para dezenas (1-50)
+                dezenas = sorted(random.sample(range(1, 51), 6))
+                # Gerar trevos únicos (1-6)
+                trevos = sorted(random.sample(range(1, 7), 2))
+                
+                data.append({
+                    'concurso': i,
+                    'data': (base_date + timedelta(days=i*7)).strftime('%Y-%m-%d'),
+                    'd1': dezenas[0], 'd2': dezenas[1], 'd3': dezenas[2],
+                    'd4': dezenas[3], 'd5': dezenas[4], 'd6': dezenas[5],
+                    't1': trevos[0], 't2': trevos[1]
+                })
+            
+            df = pd.DataFrame(data)
+            upsert_rows(df)
+            
+            st.success(f"✅ Banco de dados criado com {len(df)} registros de exemplo!")
+            
+        except Exception as e:
+            st.error(f"❌ Erro ao criar banco de dados: {e}")
+            return False
+    return True
+
+# Inicializar banco se necessário
+if not initialize_database_if_needed():
+    st.stop()
+
 # Importar módulos do projeto
 try:
     from src.etl.from_db import load_draws
