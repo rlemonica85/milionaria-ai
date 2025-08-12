@@ -31,6 +31,13 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# Adicionar o diretório raiz ao Python path
+import sys
+from pathlib import Path
+root_dir = Path(__file__).parent.parent
+if str(root_dir) not in sys.path:
+    sys.path.insert(0, str(root_dir))
+
 # Importar módulos do projeto
 try:
     from src.etl.from_db import load_draws
@@ -41,6 +48,8 @@ try:
     from src.generate.export import export_excel, format_ticket_display
 except ImportError as e:
     st.error(f"Erro ao importar módulos: {e}")
+    st.error(f"Diretório atual: {os.getcwd()}")
+    st.error(f"Python path: {sys.path}")
     st.stop()
 
 # Configuração da página
