@@ -1,0 +1,112 @@
+# Git attributes para Milionária AI
+# Garante terminações de linha corretas em diferentes sistemas
+
+# Arquivos de texto padrão
+*.py text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.json text eol=lf
+*.toml text eol=lf
+*.ini text eol=lf
+*.cfg text eol=lf
+*.conf text eol=lf
+
+# Scripts Unix/Linux
+*.sh text eol=lf
+Makefile text eol=lf
+
+# Scripts Windows
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Arquivos de configuração
+.gitignore text eol=lf
+.gitattributes text eol=lf
+.env* text eol=lf
+requirements*.txt text eol=lf
+setup.py text eol=lf
+setup.cfg text eol=lf
+pyproject.toml text eol=lf
+
+# Documentação
+README* text eol=lf
+LICENSE* text eol=lf
+CHANGELOG* text eol=lf
+INSTALL* text eol=lf
+
+# Arquivos binários
+*.db binary
+*.sqlite binary
+*.sqlite3 binary
+*.exe binary
+*.dll binary
+*.so binary
+*.dylib binary
+*.zip binary
+*.tar.gz binary
+*.tgz binary
+*.rar binary
+*.7z binary
+
+# Imagens
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg text eol=lf
+
+# Planilhas e documentos
+*.xlsx binary
+*.xls binary
+*.csv text eol=lf
+*.tsv text eol=lf
+
+# Logs (podem ser grandes)
+*.log text eol=lf
+
+# Arquivos de cache e temporários
+*.pyc binary
+*.pyo binary
+*.pyd binary
+__pycache__/ export-ignore
+*.egg-info/ export-ignore
+build/ export-ignore
+dist/ export-ignore
+.pytest_cache/ export-ignore
+.coverage export-ignore
+htmlcov/ export-ignore
+
+# Linguística do repositório (para GitHub)
+*.py linguist-language=Python
+*.js linguist-language=JavaScript
+*.html linguist-language=HTML
+*.css linguist-language=CSS
+*.sql linguist-language=SQL
+*.sh linguist-language=Shell
+*.ps1 linguist-language=PowerShell
+*.bat linguist-language=Batchfile
+
+# Arquivos de documentação não devem afetar estatísticas de linguagem
+*.md linguist-documentation
+*.txt linguist-documentation
+README* linguist-documentation
+LICENSE* linguist-documentation
+CHANGELOG* linguist-documentation
+INSTALL* linguist-documentation
+docs/ linguist-documentation
+
+# Arquivos gerados não devem afetar estatísticas
+build/ linguist-generated
+dist/ linguist-generated
+*.spec linguist-generated
+requirements.txt linguist-generated
+
+# Arquivos de configuração de ferramentas
+.flake8 text eol=lf
+.pylintrc text eol=lf
+.pre-commit-config.yaml text eol=lf
+tox.ini text eol=lf

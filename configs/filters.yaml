@@ -1,0 +1,105 @@
+# Configuração para geração de tickets da +Milionária
+# Este arquivo define parâmetros para geração de candidatos, filtros e estratégias
+
+# Parâmetros de geração de candidatos
+generation:
+  k: 6                    # Quantidade de números por ticket
+  top_pool: 25           # Tamanho do pool dos números com maiores scores
+  n: 4000                # Quantidade de tickets candidatos a gerar
+  seed: 42               # Seed para reprodutibilidade
+
+# Filtros estatísticos para tickets
+filters:
+  min_sum: 60            # Soma mínima dos 6 números (6*1 = 6, mas realista ~60)
+  max_sum: 240           # Soma máxima dos 6 números (6*50 = 300, mas realista ~240)
+  min_even: 2            # Quantidade mínima de números pares
+  max_even: 4            # Quantidade máxima de números pares
+  max_spread: 45         # Spread máximo (diferença entre maior e menor número)
+
+# Configuração para atribuição de trevos
+trevos:
+  strategy: "balanced"   # Estratégia: "balanced", "random", "low", "high"
+  seed: 42               # Seed para reprodutibilidade dos trevos
+
+# Parâmetros de saída
+output:
+  top_k: 50              # Quantidade final de tickets a retornar
+
+# Configurações alternativas para diferentes cenários
+alternative_configs:
+  
+  # Configuração conservadora (filtros mais restritivos)
+  conservative:
+    generation:
+      top_pool: 20
+      n: 2000
+    filters:
+      min_sum: 80
+      max_sum: 200
+      min_even: 2
+      max_even: 3
+      max_spread: 35
+    output:
+      top_k: 20
+  
+  # Configuração agressiva (mais permissiva)
+  aggressive:
+    generation:
+      top_pool: 35
+      n: 8000
+    filters:
+      min_sum: 40
+      max_sum: 280
+      min_even: 1
+      max_even: 5
+      max_spread: 49
+    output:
+      top_k: 100
+  
+  # Configuração para números baixos
+  low_numbers:
+    generation:
+      top_pool: 15  # Foca nos 15 menores números com maior score
+      n: 3000
+    filters:
+      min_sum: 30
+      max_sum: 150
+      min_even: 2
+      max_even: 4
+      max_spread: 25
+    trevos:
+      strategy: "low"
+    output:
+      top_k: 30
+  
+  # Configuração para números altos
+  high_numbers:
+    generation:
+      top_pool: 15  # Foca nos números altos com maior score
+      n: 3000
+    filters:
+      min_sum: 150
+      max_sum: 280
+      min_even: 2
+      max_even: 4
+      max_spread: 25
+    trevos:
+      strategy: "high"
+    output:
+      top_k: 30
+
+# Metadados
+metadata:
+  version: "1.0"
+  description: "Configuração para geração inteligente de tickets da +Milionária"
+  author: "Milionária AI"
+  created: "2024-01-01"
+  
+# Notas sobre os parâmetros
+notes:
+  - "min_sum/max_sum: Baseados em análise estatística de sorteios históricos"
+  - "min_even/max_even: Equilibrio entre números pares e ímpares"
+  - "max_spread: Evita tickets com números muito concentrados ou dispersos"
+  - "top_pool: Balanceia entre diversidade e qualidade dos scores"
+  - "n: Quantidade suficiente para diversidade após aplicação dos filtros"
+  - "top_k: Quantidade final otimizada para análise manual"

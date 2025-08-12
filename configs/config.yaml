@@ -1,0 +1,45 @@
+# Configuração principal do Milionária AI
+# Este arquivo contém configurações gerais da aplicação
+
+# Configurações da aplicação
+app:
+  name: "Milionária AI"
+  version: "1.0.0"
+  debug: true
+  
+# Configurações do banco de dados
+database:
+  path: "db/milionaria.db"
+  timeout: 30
+  
+# Configurações de logging
+logging:
+  level: "INFO"
+  file: "logs/milionaria_cli.log"
+  format: "%(asctime)s - %(levelname)s - %(message)s"
+  
+# Configurações do Streamlit
+streamlit:
+  port: 8501
+  host: "localhost"
+  theme: "light"
+  
+# Configurações de filtros (referência ao arquivo específico)
+filters:
+  config_file: "configs/filters.yaml"
+  
+# Configurações de geração
+generation:
+  default_seed: 42
+  default_top_k: 50
+  
+# Configurações de exportação
+export:
+  default_format: "xlsx"
+  output_dir: "outputs"
+  
+# Metadados
+metadata:
+  created: "2024-01-01"
+  author: "Milionária AI"
+  description: "Configuração principal do sistema"

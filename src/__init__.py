@@ -1,0 +1,1 @@
+# Pacote principal do projeto Milionária AI
